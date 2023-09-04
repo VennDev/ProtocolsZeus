@@ -3,61 +3,60 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayInHeldItemSlot : public Packet
+	class packet_play_in_held_item_slot final : public packet
 	{
-	private:
-		int _idi;
-		int _meta;
-		int _slot;
-		std::string _name;
-		std::string _lore;
+		int idi_;
+		int meta_;
+		int slot_;
+		std::string name_;
+		std::string lore_;
 
 	public:
-		PacketPlayInHeldItemSlot(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			int idi,
-			int meta,
-			int slot,
-			std::string name,
-			std::string lore
-		) : Packet(id, origin, timeCurrent)
+		packet_play_in_held_item_slot(
+			const int _id,
+			const std::string& _origin,
+			double _time_current,
+			const int idi,
+			const int meta,
+			const int slot,
+			const std::string& name,
+			const std::string& lore
+		) : packet(_id, _origin, _time_current)
 		{
-			_idi = idi;
-			_meta = meta;
-			_slot = slot;
-			_name = name;
-			_lore = lore;
+			idi_ = idi;
+			meta_ = meta;
+			slot_ = slot;
+			name_ = name;
+			lore_ = lore;
 		}
 
-		int getIdItem()
+		int get_id_item() const
 		{
-			return _idi;
+			return idi_;
 		}
 
-		int getMeta()
+		int get_meta() const
 		{
-			return _meta;
+			return meta_;
 		}
 
-		int getSlot()
+		int get_slot() const
 		{
-			return _slot;
+			return slot_;
 		}
 
-		std::string getName()
+		std::string get_name()
 		{
-			return _name;
+			return name_;
 		}
 
-		std::string getLore()
+		std::string get_lore()
 		{
-			return _lore;
+			return lore_;
 		}
 	};
 }

@@ -3,16 +3,15 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayInTransaction : public Packet
+	class packet_play_in_transaction final : public packet
 	{
-	private:
-		int _sourceType;
-		int _sourceFlags;
-		unsigned char _slot;
+		int source_type_;
+		int source_flags_;
+		unsigned char slot_;
 
 	public:
 		const unsigned char SOURCE_CONTAINER = 0;
@@ -34,33 +33,33 @@ namespace Protocols
 		const unsigned char ACTION_MAGIC_SLOT_DROP_ITEM = 0;
 		const unsigned char ACTION_MAGIC_SLOT_PICKUP_ITEM = 1;
 
-		PacketPlayInTransaction(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			int sourceType,
-			int sourceFlags,
+		packet_play_in_transaction(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const int sourceType,
+			const int sourceFlags,
 			unsigned char slot
-		) : Packet(id, origin, timeCurrent)
+		) : packet(_id, _origin, _time_current)
 		{
-			_sourceType = sourceType;
-			_sourceFlags = sourceFlags;
-			_slot = slot;
+			source_type_ = sourceType;
+			source_flags_ = sourceFlags;
+			slot_ = slot;
 		}
 
-		int getSourceType()
+		int get_source_type() const
 		{
-			return _sourceType;
+			return source_type_;
 		}
 
-		int getSourceFlags()
+		int get_source_flags() const
 		{
-			return _sourceFlags;
+			return source_flags_;
 		}
 
-		unsigned char getSlot()
+		unsigned char get_slot() const
 		{
-			return _slot;
+			return slot_;
 		}
 	};
 }

@@ -3,45 +3,44 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayOutEntityTeleport : public Packet
+	class packet_play_out_entity_teleport final : public packet
 	{
-	private:
-		float _x;
-		float _y;
-		float _z;
+		float x_;
+		float y_;
+		float z_;
 
 	public:
-		PacketPlayOutEntityTeleport(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			float x,
-			float y,
-			float z
-		) : Packet(id, origin, timeCurrent)
+		packet_play_out_entity_teleport(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const float x,
+			const float y,
+			const float z
+		) : packet(_id, _origin, _time_current)
 		{
-			_x = x;
-			_y = y;
-			_z = z;
+			x_ = x;
+			y_ = y;
+			z_ = z;
 		}
 
-		float getX()
+		float get_x() const
 		{
-			return _x;
+			return x_;
 		}
 
-		float getY()
+		float get_y() const
 		{
-			return _y;
+			return y_;
 		}
 
-		float getZ()
+		float get_z() const
 		{
-			return _z;
+			return z_;
 		}
 	};
 }

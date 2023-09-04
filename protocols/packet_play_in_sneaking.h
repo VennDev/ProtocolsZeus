@@ -3,33 +3,32 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayInSneaking : public Packet
+	class packet_play_in_sneaking final : public packet
 	{
-	private:
-		bool _cancelled;
+		bool cancelled_;
 
 	public:
-		PacketPlayInSneaking(
-			int id,
-			std::string origin,
-			double timeCurrent
-		) : Packet(id, origin, timeCurrent)
+		packet_play_in_sneaking(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current
+		) : packet(_id, _origin, _time_current)
 		{
-			_cancelled = false;
+			cancelled_ = false;
 		}
 
 		void cancel()
 		{
-			_cancelled = true;
+			cancelled_ = true;
 		}
 
-		bool isCancelled()
+		bool is_cancelled() const
 		{
-			return _cancelled;
+			return cancelled_;
 		}
 	};
 }

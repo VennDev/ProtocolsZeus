@@ -3,17 +3,16 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayOutEntityEffect : public Packet
+	class packet_play_out_entity_effect final : public packet
 	{
-	private:
-		unsigned char _effectId;
-		float _amplifier;
-		float _duration;
-		unsigned char _flags;
+		unsigned char effect_id_;
+		float amplifier_;
+		float duration_;
+		unsigned char flags_;
 
 	public:
 		unsigned char const ABSORPTION = 22;
@@ -53,40 +52,40 @@ namespace Protocols
 		unsigned char const MODIFY = 1;
 		unsigned char const REMOVE = 2;
 
-		PacketPlayOutEntityEffect(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			unsigned char effectId,
-			float amplifier,
-			float duration,
-			unsigned char flags
-		) : Packet(id, origin, timeCurrent)
+		packet_play_out_entity_effect(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const unsigned char effectId,
+			const float amplifier,
+			const float duration,
+			const unsigned char flags
+		) : packet(_id, _origin, _time_current)
 		{
-			_effectId = effectId;
-			_amplifier = amplifier;
-			_duration = duration;
-			_flags = flags;
+			effect_id_ = effectId;
+			amplifier_ = amplifier;
+			duration_ = duration;
+			flags_ = flags;
 		}
 
-		unsigned char getEffectId()
+		unsigned char get_effect_id() const
 		{
-			return _effectId;
+			return effect_id_;
 		}
 
-		float getAmplifier()
+		float get_amplifier() const
 		{
-			return _amplifier;
+			return amplifier_;
 		}
 
-		float getDuration()
+		float get_duration() const
 		{
-			return _duration;
+			return duration_;
 		}
 
-		unsigned char getFlags()
+		unsigned char get_flags() const
 		{
-			return _flags;
+			return flags_;
 		}
 	};
 }

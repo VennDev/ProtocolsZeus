@@ -3,69 +3,68 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayerPosition : public Packet
+	class packet_player_position final : public packet
 	{
-	private:
-		float _x;
-		float _y;
-		float _z;
-		float _yaw;
-		float _pitch;
-		bool _onGround;
+		double x_;
+		double y_;
+		double z_;
+		double yaw_;
+		double pitch_;
+		bool on_ground_;
 
 	public:
-		PacketPlayerPosition(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			float x,
-			float y,
-			float z,
-			float yaw,
-			float pitch,
-			bool onGround
-		) : Packet(id, origin, timeCurrent)
+		packet_player_position(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const double x,
+			const double y,
+			const double z,
+			const double yaw,
+			const double pitch,
+			const bool on_ground
+		) : packet(_id, _origin, _time_current)
 		{
-			_x = x;
-			_y = y;
-			_z = z;
-			_yaw = yaw;
-			_pitch = pitch;
-			_onGround = onGround;
+			x_ = x;
+			y_ = y;
+			z_ = z;
+			yaw_ = yaw;
+			pitch_ = pitch;
+			on_ground_ = on_ground;
 		}
 
-		float getX()
+		double get_x() const
 		{
-			return _x;
+			return x_;
 		}
 
-		float getY()
+		double get_y() const
 		{
-			return _y;
+			return y_;
 		}
 
-		float getZ()
+		double get_z() const
 		{
-			return _z;
+			return z_;
 		}
 
-		float getYaw()
+		double get_yaw() const
 		{
-			return _yaw;
+			return yaw_;
 		}
 
-		float getPitch()
+		double get_pitch() const
 		{
-			return _pitch;
+			return pitch_;
 		}
 
-		bool isOnGround()
+		bool is_on_ground() const
 		{
-			return _onGround;
+			return on_ground_;
 		}
 	};
 }

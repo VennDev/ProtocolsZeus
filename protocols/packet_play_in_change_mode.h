@@ -3,14 +3,13 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayInChangeMode : public Packet
+	class packet_play_in_change_mode final : public packet
 	{
-	private:
-		unsigned char _mode;
+		unsigned char mode_;
 
 	public:
 		const unsigned char SURVIVAL = 0;
@@ -19,19 +18,19 @@ namespace Protocols
 		const unsigned char SPECTATOR = 3;
 		const unsigned char OTHER = 4;
 
-		PacketPlayInChangeMode(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			unsigned char mode
-		) : Packet(id, origin, timeCurrent)
+		packet_play_in_change_mode(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const unsigned char mode
+		) : packet(_id, _origin, _time_current)
 		{
-			_mode = mode;
+			mode_ = mode;
 		}
 
-		unsigned char getMode()
+		unsigned char get_mode() const
 		{
-			return _mode;
+			return mode_;
 		}
 	};
 }

@@ -3,37 +3,36 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayInSteerVehicle : public Packet
+	class packet_play_in_steer_vehicle final : public packet
 	{
-	private:
-		float _strafe;
-		float _forward;
+		float strafe_;
+		float forward_;
 
 	public:
-		PacketPlayInSteerVehicle(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			float strafe,
-			float forward
-		) : Packet(id, origin, timeCurrent)
+		packet_play_in_steer_vehicle(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const float strafe,
+			const float forward
+		) : packet(_id, _origin, _time_current)
 		{
-			_strafe = strafe;
-			_forward = forward;
+			strafe_ = strafe;
+			forward_ = forward;
 		}
 
-		float getStrafe()
+		float get_strafe() const
 		{
-			return _strafe;
+			return strafe_;
 		}
 
-		float getForward()
+		float get_forward() const
 		{
-			return _forward;
+			return forward_;
 		}
 	};
 }

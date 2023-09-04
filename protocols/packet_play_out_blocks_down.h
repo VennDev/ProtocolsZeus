@@ -5,29 +5,28 @@
 
 #include <vector>
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayOutBlocksDown : public Packet
+	class packet_play_out_blocks_down final : public packet
 	{
-	private:
-		 std::vector<int> _blocks;
+		 std::vector<int> blocks_;
 
 	public:
-		PacketPlayOutBlocksDown(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			std::vector<int> blocks
-		) : Packet(id, origin, timeCurrent)
+		packet_play_out_blocks_down(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const std::vector<int>& blocks
+		) : packet(_id, _origin, _time_current)
 		{
-			_blocks = blocks;
+			blocks_ = blocks;
 		}
 
-		std::vector<int> getBlocks()
+		std::vector<int> get_blocks() const
 		{
-			return _blocks;
+			return blocks_;
 		}
 	};
 }

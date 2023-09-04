@@ -3,41 +3,40 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayerLogout : public Packet
+	class packet_player_logout final : public packet
 	{
-	private:
-		bool _cancelled;
-		std::string _xuid;
+		bool cancelled_;
+		std::string xuid_;
 
 	public:
-		PacketPlayerLogout(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			std::string xuid
-		) : Packet(id, origin, timeCurrent)
+		packet_player_logout(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const std::string& xuid
+		) : packet(_id, _origin, _time_current)
 		{
-			_xuid = xuid;
-			_cancelled = false;
+			xuid_ = xuid;
+			cancelled_ = false;
 		}
 
 		void cancel()
 		{
-			_cancelled = true;
+			cancelled_ = true;
 		}
 
-		bool isCancelled()
+		bool is_cancelled() const
 		{
-			return _cancelled;
+			return cancelled_;
 		}
 
-		std::string getXuid()
+		std::string get_xuid() const
 		{
-			return _xuid;
+			return xuid_;
 		}
 	};
 }

@@ -2,190 +2,171 @@
 
 #include <vector>
 
-namespace Protocols
+namespace protocols
 {
 
-	Packet* Protocol::processDataPacket(nlohmann::json data)
+	packet* protocol::process_data_packet(nlohmann::json data)
 	{
-		int id = static_cast<int>(data["id"]);
+		int id = data["id"];
 		std::string origin = static_cast<std::string>(data["origin"]);
-		double timeCurrent = static_cast<double>(data["timeCurrent"]);
+		double time_current = data["timeCurrent"];
 
-		Packet* packet = nullptr;
+		packet* p = nullptr;
 
-		if (id == PACKET_KEEP_ALIVE)
-		{
-			Packet packet = PacketKeepAlive(id, origin, timeCurrent);
+		if (id == PACKET_KEEP_ALIVE) {
+			p = new packet_keep_alive(id, origin, time_current);
 		}
 		else if (id == PACKET_PLAY_IN_CHANGE_MODE)
 		{
-			unsigned char mode = static_cast<unsigned char>(data["mode"]);
-
-			Packet packet = PacketPlayInChangeMode(id, origin, timeCurrent, mode);
+			unsigned char mode = data["mode"];
+			p = new packet_play_in_change_mode(id, origin, time_current, mode);
 		}
 		else if (id == PACKET_PLAY_IN_CLOSE_WINDOW)
 		{
-			Packet packet = PacketPlayInCloseWindow(id, origin, timeCurrent);
+			p = new packet_play_in_close_window(id, origin, time_current);
 		}
 		else if (id == PACKET_PLAY_IN_DEATH)
 		{
-			float x = static_cast<float>(data["x"]);
-			float y = static_cast<float>(data["y"]);
-			float z = static_cast<float>(data["z"]);
-
-			Packet packet = PacketPlayInDeath(id, origin, timeCurrent, x, y, z);
+			float x = data["x"];
+			float y = data["y"];
+			float z = data["z"];
+			p = new packet_play_in_death(id, origin, time_current, x, y, z);
 		}
 		else if (id == PACKET_PLAY_IN_HELD_ITEM_SLOT)
 		{
-			int idi = static_cast<int>(data["idi"]);
-			int meta = static_cast<int>(data["meta"]);
-			int slot = static_cast<int>(data["slot"]);
+			int idi = data["idi"];
+			int meta = data["meta"];
+			int slot = data["slot"];
 			std::string name = static_cast<std::string>(data["name"]);
 			std::string lore = static_cast<std::string>(data["lore"]);
-
-			Packet packet = PacketPlayInHeldItemSlot(id, origin, timeCurrent, idi, meta, slot, name, lore);
+			p = new packet_play_in_held_item_slot(id, origin, time_current, idi, meta, slot, name, lore);
 		}
 		else if (id == PACKET_PLAY_IN_OPEN_WINDOW)
 		{
-			Packet packet = PacketPlayInOpenWindow(id, origin, timeCurrent);
+			p = new packet_play_in_open_window(id, origin, time_current);
 		}
 		else if (id == PACKET_PLAY_IN_ROTATION)
 		{
-			float yaw = static_cast<float>(data["yaw"]);
-			float pitch = static_cast<float>(data["pitch"]);
-
-			Packet packet = PacketPlayInRotation(id, origin, timeCurrent, yaw, pitch);
+			float yaw = data["yaw"];
+			float pitch = data["pitch"];
+			p = new packet_play_in_rotation(id, origin, time_current, yaw, pitch);
 		}
 		else if (id == PACKET_PLAY_IN_SNEAKING)
 		{
-			Packet packet = PacketPlayInSprinting(id, origin, timeCurrent);
+			p = new packet_play_in_sneaking(id, origin, time_current);
 		}
 		else if (id == PACKET_PLAY_IN_SPRINTING)
 		{
-			Packet packet = PacketPlayInSprinting(id, origin, timeCurrent);
+			p = new packet_play_in_sprinting(id, origin, time_current);
 		}
 		else if (id == PACKET_PLAY_IN_STEER_VEHICLE)
 		{
-			float strafe = static_cast<float>(data["strafe"]);
-			float forward = static_cast<float>(data["forwart"]);
-
-			Packet packet = PacketPlayInSteerVehicle(id, origin, timeCurrent, strafe, forward);
+			float strafe = data["strafe"];
+			float forward = data["forward"];
+			p = new packet_play_in_steer_vehicle(id, origin, time_current, strafe, forward);
 		}
 		else if (id == PACKET_PLAY_IN_TRANSACTION)
 		{
-			int sourceType = static_cast<int>(data["sourceType"]);
-			int sourceFlags = static_cast<int>(data["sourceFlags"]);
-			unsigned char slot = static_cast<unsigned char>(data["slot"]);
-
-			Packet packet = PacketPlayInTransaction(id, origin, timeCurrent, sourceType, sourceFlags, slot);
+			int source_type = data["sourceType"];
+			int source_flags = data["sourceFlags"];
+			unsigned char slot = data["slot"];
+			p = new packet_play_in_transaction(id, origin, time_current, source_type, source_flags, slot);
 		}
 		else if (id == PACKET_PLAY_IN_USE_ENTITY)
 		{
-			float originX = static_cast<float>(data["originX"]);
-			float originY = static_cast<float>(data["originY"]);
-			float originZ = static_cast<float>(data["originZ"]);
-			float originYaw = static_cast<float>(data["originYaw"]);
-			float originPitch = static_cast<float>(data["originPitch"]);
-			float targetX = static_cast<float>(data["targetX"]);
-			float targetY = static_cast<float>(data["targetY"]);
-			float targetZ = static_cast<float>(data["targetZ"]);
-			float targetYaw = static_cast<float>(data["targetYaw"]);
-			float targetPitch = static_cast<float>(data["targetPitch"]);
-
-			Packet packet = PacketPlayInUseEntity(id, origin, timeCurrent, originX, originY, originZ, originYaw, originPitch, targetX, targetY, targetZ, targetYaw, targetPitch);
+			float origin_x = data["originX"];
+			float origin_y = data["originY"];
+			float origin_z = data["originZ"];
+			float origin_yaw = data["originYaw"];
+			float origin_pitch = data["originPitch"];
+			float target_x = data["targetX"];
+			float target_y = data["targetY"];
+			float target_z = data["targetZ"];
+			float target_yaw = data["targetYaw"];
+			float target_pitch = data["targetPitch"];
+			p = new packet_play_in_use_entity(id, origin, time_current, origin_x, origin_y, origin_z, origin_yaw, origin_pitch, target_x, target_y, target_z, target_yaw, target_pitch);
 		}
 		else if (id == PACKET_PLAY_OUT_BLOCKS_DOWN)
 		{
 			std::vector<int> blocks = data["blocks"];
-
-			Packet packet = PacketPlayOutBlocksDown(id, origin, timeCurrent, blocks);
+			p = new packet_play_out_blocks_down(id, origin, time_current, blocks);
 		}
 		else if (id == PACKET_PLAY_OUT_ENTITY_EFFECT)
 		{
-			unsigned char effectId = static_cast<unsigned char>(data["effectId"]);
-			float amplifier = static_cast<float>(data["amplifier"]);
-			float duration = static_cast<float>(data["duration"]);
-			unsigned char flags = static_cast<unsigned char>(data["flags"]);
-
-			Packet packet = PacketPlayOutEntityEffect(id, origin, timeCurrent, effectId, amplifier, duration, flags);
+			unsigned char effect_id = data["effectId"];
+			float amplifier = data["amplifier"];
+			float duration = data["duration"];
+			unsigned char flags = data["flags"];
+			p = new packet_play_out_entity_effect(id, origin, time_current, effect_id, amplifier, duration, flags);
 		}
 		else if (id == PACKET_PLAY_OUT_ENTITY_TELEPORT)
 		{
-			float x = static_cast<float>(data["x"]);
-			float y = static_cast<float>(data["y"]);
-			float z = static_cast<float>(data["z"]);
-
-			Packet packet = PacketPlayOutEntityTeleport(id, origin, timeCurrent, x, y, z);
+			float x = data["x"];
+			float y = data["y"];
+			float z = data["z"];
+			p = new packet_play_out_entity_teleport(id, origin, time_current, x, y, z);
 		}
 		else if (id == PACKET_PLAY_OUT_EXPLOSION)
 		{
-			float x = static_cast<float>(data["x"]);
-			float y = static_cast<float>(data["y"]);
-			float z = static_cast<float>(data["z"]);
-
-			Packet packet = PacketPlayOutExplosion(id, origin, timeCurrent, x, y, z);
+			float x = data["x"];
+			float y = data["y"];
+			float z = data["z"];
+			p = new packet_play_out_explosion(id, origin, time_current, x, y, z);
 		}
 		else if (id == PACKET_PLAY_OUT_RESPAWN)
 		{
-			float x = static_cast<float>(data["x"]);
-			float y = static_cast<float>(data["y"]);
-			float z = static_cast<float>(data["z"]);
-
-			Packet packet = PacketPlayOutRespawn(id, origin, timeCurrent, x, y, z);
+			float x = data["x"];
+			float y = data["y"];
+			float z = data["z"];
+			p = new packet_play_out_respawn(id, origin, time_current, x, y, z);
 		}
 		else if (id == PACKET_PLAY_OUT_TRANSACTION)
 		{
-			int sourceType = static_cast<int>(data["sourceType"]);
-			int sourceFlags = static_cast<int>(data["sourceFlags"]);
-			unsigned char slot = static_cast<unsigned char>(data["slot"]);
-
-			Packet packet = PacketPlayOutTransaction(id, origin, timeCurrent, sourceType, sourceFlags, slot);
+			int source_type = data["sourceType"];
+			int source_flags = data["sourceFlags"];
+			unsigned char slot = data["slot"];
+			p = new packet_play_out_transaction(id, origin, time_current, source_type, source_flags, slot);
 		}
 		else if (id == PACKET_PLAYER_ARM_ANIMATION)
 		{ 
-			Packet packet = PacketPlayerArmAnimation(id, origin, timeCurrent);
+			p = new packet_player_arm_animation(id, origin, time_current);
 		}
 		else if (id == PACKET_PLAYER_BREAK_BLOCK)
 		{
-			float x = static_cast<float>(data["x"]);
-			float y = static_cast<float>(data["y"]);
-			float z = static_cast<float>(data["z"]);
-
-			Packet packet = PacketPlayerBreakBlock(id, origin, timeCurrent, x, y, z);
+			float x = data["x"];
+			float y = data["y"];
+			float z = data["z"];
+			p = new packet_player_break_block(id, origin, time_current, x, y, z);
 		}
 		else if (id == PACKET_PLAYER_LOGIN)
 		{
 			std::string xuid = static_cast<std::string>(data["xuid"]);
-
-			Packet packet = PacketPlayerLogin(id, origin, timeCurrent, xuid);
+			p = new packet_player_login(id, origin, time_current, xuid);
 		}
 		else if (id == PACKET_PLAYER_LOGOUT)
 		{
 			std::string xuid = static_cast<std::string>(data["xuid"]);
-
-			Packet packet = PacketPlayerLogout(id, origin, timeCurrent, xuid);
+			p = new packet_player_logout(id, origin, time_current, xuid);
 		}
 		else if (id == PACKET_PLAYER_PLACE_BLOCK)
 		{
-			float x = static_cast<float>(data["x"]);
-			float y = static_cast<float>(data["y"]);
-			float z = static_cast<float>(data["z"]);
-
-			Packet packet = PacketPlayerPlaceBlock(id, origin, timeCurrent, x, y, z);
+			float x = data["x"];
+			float y = data["y"];
+			float z = data["z"];
+			p = new packet_player_place_block(id, origin, time_current, x, y, z);
 		}
 		else if (id == PACKET_PLAYER_POSITION)
 		{
-			float x = static_cast<float>(data["x"]);
-			float y = static_cast<float>(data["y"]);
-			float z = static_cast<float>(data["z"]);
-			float yaw = static_cast<float>(data["yaw"]);
-			float pitch = static_cast<float>(data["pitch"]);
-			bool onGround = static_cast<bool>(data["onGround"]);
-
-			Packet packet = PacketPlayerPosition(id, origin, timeCurrent, x, y, z, yaw, pitch, onGround);
+			float x = data["x"];
+			float y = data["y"];
+			float z = data["z"];
+			float yaw = data["yaw"];
+			float pitch = data["pitch"];
+			bool on_ground = data["onGround"];
+			p = new packet_player_position(id, origin, time_current, x, y, z, yaw, pitch, on_ground);
 		}
 
-		return packet;
+		return p;
 	}
 
 }

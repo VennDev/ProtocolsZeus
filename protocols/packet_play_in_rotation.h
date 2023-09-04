@@ -3,37 +3,36 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayInRotation : public Packet
+	class packet_play_in_rotation final : public packet
 	{
-	private:
-		float _yaw;
-		float _pitch;
+		float yaw_;
+		float pitch_;
 
 	public:
-		PacketPlayInRotation(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			float yaw,
-			float pitch
-		) : Packet(id, origin, timeCurrent)
+		packet_play_in_rotation(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const float yaw,
+			const float pitch
+		) : packet(_id, _origin, _time_current)
 		{
-			_yaw = yaw;
-			_pitch = pitch;
+			yaw_ = yaw;
+			pitch_ = pitch;
 		}
 
-		float getYaw()
+		float get_yaw() const
 		{
-			return _yaw;
+			return yaw_;
 		}
 
-		float getPitch()
+		float get_pitch() const
 		{
-			return _pitch;
+			return pitch_;
 		}
 	};
 }

@@ -3,101 +3,100 @@
 
 #include "../compat/packet.h"
 
-using namespace Compat;
+using namespace compat;
 
-namespace Protocols
+namespace protocols
 {
-	class PacketPlayInUseEntity : public Packet
+	class packet_play_in_use_entity final : public packet
 	{
-	private:
-		float _originX;
-		float _originY;
-		float _originZ;
-		float _originYaw;
-		float _originPitch;
-		float _targetX;
-		float _targetY;
-		float _targetZ;
-		float _targetYaw;
-		float _targetPitch;
+		float origin_x_;
+		float origin_y_;
+		float origin_z_;
+		float origin_yaw_;
+		float origin_pitch_;
+		float target_x_;
+		float target_y_;
+		float target_z_;
+		float target_yaw_;
+		float target_pitch_;
 
 	public:
-		PacketPlayInUseEntity(
-			int id,
-			std::string origin,
-			double timeCurrent,
-			float originX,
-			float originY,
-			float originZ,
-			float originYaw,
-			float originPitch,
-			float targetX,
-			float targetY,
-			float targetZ,
-			float targetYaw,
-			float targetPitch
-		) : Packet(id, origin, timeCurrent)
+		packet_play_in_use_entity(
+			const int _id,
+			const std::string& _origin,
+			const double _time_current,
+			const float origin_x,
+			const float origin_y,
+			const float origin_z,
+			const float origin_yaw,
+			const float origin_pitch,
+			const float target_x,
+			const float target_y,
+			const float target_z,
+			const float target_yaw,
+			const float target_pitch
+		) : packet(_id, _origin, _time_current)
 		{
-			_originX = originX;
-			_originY = originY;
-			_originZ = originZ;
-			_originYaw = originYaw;
-			_originPitch = originPitch;
-			_targetX = targetX;
-			_targetY = targetY;
-			_targetZ = targetZ;
-			_targetYaw = targetYaw;
-			_targetPitch = targetPitch;
+			origin_x_ = origin_x;
+			origin_y_ = origin_y;
+			origin_z_ = origin_z;
+			origin_yaw_ = origin_yaw;
+			origin_pitch_ = origin_pitch;
+			target_x_ = target_x;
+			target_y_ = target_y;
+			target_z_ = target_z;
+			target_yaw_ = target_yaw;
+			target_pitch_ = target_pitch;
 		}
 
-		float getOriginX()
+		float get_origin_x() const
 		{
-			return _originX;
+			return origin_x_;
 		}
 
-		float getOriginY()
+		float get_origin_y() const
 		{
-			return _originY;
+			return origin_y_;
 		}
 
-		float getOriginZ()
+		float get_origin_z() const
 		{
-			return _originZ;
+			return origin_z_;
 		}
 
-		float getOriginYaw()
+		float get_origin_yaw() const
 		{
-			return _originYaw;
+			return origin_yaw_;
 		}
 
-		float getOriginPitch()
+		float get_origin_pitch() const
 		{
-			return _originPitch;
+			return origin_pitch_;
 		}
 
-		float getTargetX()
+		float get_target_x() const
 		{
-			return _targetX;
+			return target_x_;
 		}
 
-		float getTargetY()
+		float get_target_y() const
 		{
-			return _targetY;
+			return target_y_;
 		}
 
-		float getTargetZ()
+		float get_target_z() const
 		{
-			return _targetZ;
+			return target_z_;
 		}
 
-		float getTargetYaw()
+		float get_target_yaw() const
 		{
-			return _targetYaw;
+			return target_yaw_;
 		}
 
-		float getTargetPitch()
+		float get_target_pitch() const
 		{
-			return _targetPitch;
+			return target_pitch_;
 		}
 	};
 }

@@ -31,11 +31,9 @@
 
 #include <nlohmann/json.hpp>
 
-using namespace Compat;
-
-namespace Protocols
+namespace protocols
 {
-    class Protocol
+    class protocol
     {
     public:
         int static const PACKET_PLAYER_LOGIN = 1;
@@ -63,7 +61,7 @@ namespace Protocols
         int static const PACKET_PLAY_OUT_TRANSACTION = 23;
         int static const PACKET_PLAY_OUT_BLOCKS_DOWN = 24;
 
-        static Packet* processDataPacket(nlohmann::json data);
+        static packet* process_data_packet(nlohmann::json data);
     };
 }
 
